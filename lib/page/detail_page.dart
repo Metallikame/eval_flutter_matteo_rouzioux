@@ -23,21 +23,21 @@ class DetailPage extends StatelessWidget {
                 article.image,
                 height: 200.0,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
               Text(
                 article.nom,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
               Text(
                 article.description,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
               Text(
@@ -45,7 +45,7 @@ class DetailPage extends StatelessWidget {
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
               Text(
@@ -53,10 +53,10 @@ class DetailPage extends StatelessWidget {
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              Spacer(),
+              const Spacer(),
               ElevatedButton(
                   onPressed: () => context.read<Cart>().addArticle(article),
-                  child: Text("AJOUTER AU PANIER"))
+                  child: const Text("AJOUTER AU PANIER"))
             ],
           ),
         ));

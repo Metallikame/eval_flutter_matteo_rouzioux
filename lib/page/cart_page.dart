@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../bo/cart.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({super.key});
+  const CartPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,25 +16,23 @@ class CartPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        //Si j'ai plus de 0 éléments dans le panier j'affiche la liste
-        //des éléments dans le panier
-        //Sinon j'affiche le Widget EmptyCart qui affiche "Votre Panier est vide"
         child: context.watch<Cart>().items.isNotEmpty
             ? const ListCart()
             : const EmptyCart(),
       ),
+      bottomNavigationBar: context.watch<Cart>().items.length >= 5
+          ? const ProceedToPaymentButton()
+          : null,
     );
   }
 }
 
 class EmptyCart extends StatelessWidget {
-  const EmptyCart({
-    super.key,
-  });
+  const EmptyCart({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,50 +41,73 @@ class EmptyCart extends StatelessWidget {
         Spacer(),
         Text("Votre panier est actuellement vide"),
         Icon(Icons.image),
-        Spacer()
+        Spacer(),
       ],
     );
   }
 }
 
 class ListCart extends StatelessWidget {
-  const ListCart({super.key});
+  const ListCart({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<Cart>(
-        builder: (context, cart, _) => Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Votre panier total est de"),
-                    Text(cart.priceTotalInEuro())
-                  ],
+      builder: (context, cart, _) => Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Votre panier total est de"),
+              Text(cart.priceTotalInEuro())
+            ],
+          ),
+          Flexible(
+            child: ListView.builder(
+              itemCount: cart.items.length,
+              itemBuilder: (context, index) => ListTile(
+                leading: Image.network(cart.items[index].image),
+                title: Text(cart.items[index].nom),
+                subtitle: Text(
+                  cart.items[index].getPrixEuro(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                //Ajouter la ligne de total (Row Votre panier total est de)
-                //Avec le montant
-                Flexible(
-                  child: ListView.builder(
-                      itemCount: cart.items.length,
-                      itemBuilder: (context, index) => ListTile(
-                            leading: Image.network(cart.items[index].image),
-                            title: Text(cart.items[index].nom),
-                            subtitle: Text(
-                              cart.items[index].getPrixEuro(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            //Supprimer un élément du panier
-                            trailing: TextButton(
-                              child: const Text("SUPPRIMER"),
-                              onPressed: () => context
-                                  .read<Cart>()
-                                  .removeArticle(cart.items[index]),
-                            ),
-                          )),
+                trailing: TextButton(
+                  child: const Text("SUPPRIMER"),
+                  onPressed: () =>
+                      context.read<Cart>().removeArticle(cart.items[index]),
                 ),
-              ],
-            ));
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProceedToPaymentButton extends StatelessWidget {
+  const ProceedToPaymentButton({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    final cart = context.read<Cart>();
+    final subtotalInt = cart.priceTotal();
+
+    return ElevatedButton(
+      onPressed: () {
+        context.go('/payment?subtotal=$subtotalInt');
+      },
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: Theme.of(context).colorScheme.outline),
+        ),
+        primary: Colors.red, // Couleur du bouton
+        onPrimary: Colors.white, // Couleur du texte
+      ),
+      child: const Text("Procéder au paiement"),
+    );
   }
 }

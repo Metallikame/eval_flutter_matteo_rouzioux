@@ -173,10 +173,10 @@ class _PaymentPageState extends State<PaymentPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildPaymentMethodContainer(context, FontAwesomeIcons.creditCard),
-        _buildPaymentMethodContainer(context, FontAwesomeIcons.paypal),
-        _buildPaymentMethodContainer(context, FontAwesomeIcons.googleWallet),
-        _buildPaymentMethodContainer(context, FontAwesomeIcons.applePay),
+        _buildPaymentMethodContainer(context, FontAwesomeIcons.ccApplePay),
+        _buildPaymentMethodContainer(context, FontAwesomeIcons.ccVisa),
+        _buildPaymentMethodContainer(context, FontAwesomeIcons.ccMastercard),
+        _buildPaymentMethodContainer(context, FontAwesomeIcons.ccPaypal),
       ],
     );
   }
@@ -205,6 +205,7 @@ class _PaymentPageState extends State<PaymentPage> {
             padding: const EdgeInsets.all(16.0),
             child: FaIcon(
               icon,
+              size: 30, // Ajustez cette valeur pour la taille désirée
               color: isSelected ? Colors.red : null, // Couleur si sélectionné
             ),
           ),
@@ -212,6 +213,7 @@ class _PaymentPageState extends State<PaymentPage> {
       ),
     );
   }
+
 
   Widget _buildElevatedContainer(BuildContext context,
       {required Widget child}) {

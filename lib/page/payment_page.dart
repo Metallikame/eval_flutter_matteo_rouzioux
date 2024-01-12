@@ -90,7 +90,7 @@ class PaymentPage extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, 0, 0, 12.0),
               child: Text(
                 "En cliquant sur \"confirmer l'achat\", vous acceptez les Conditions de vente de EPSI Shop Internationnal. Besoin d'aide ? Désolé on peut rien faire.\n"
-                    "En poursuivant, vous acceptez les Conditions d'utilisation du fournisseur de paiement CoffeeDis.",
+                "En poursuivant, vous acceptez les Conditions d'utilisation du fournisseur de paiement CoffeeDis.",
                 textAlign: TextAlign.left,
               ),
             ),
@@ -105,7 +105,7 @@ class PaymentPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                   side:
-                  BorderSide(color: Theme.of(context).colorScheme!.outline),
+                      BorderSide(color: Theme.of(context).colorScheme!.outline),
                 ),
                 // Ajout de propriétés spécifiques au bouton de confirmation
                 backgroundColor: Colors.red,

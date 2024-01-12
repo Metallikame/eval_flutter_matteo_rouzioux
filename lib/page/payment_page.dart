@@ -6,7 +6,10 @@ class PaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final arguments = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as Map<String, dynamic>;
     final subtotal = double.parse(arguments['subtotal'] ?? '0.00');
     final tva = 0.20 * subtotal;
     final total = subtotal + tva;
@@ -27,11 +30,14 @@ class PaymentPage extends StatelessWidget {
                   const Text("Récapitulatif de votre commande"),
                   const SizedBox(height: 16.0),
                   // Ligne sous-total
-                  _buildOrderSummaryRow("Sous-Total", '${subtotal.toStringAsFixed(2)}€'),
+                  _buildOrderSummaryRow(
+                      "Sous-Total", '${subtotal.toStringAsFixed(2)}€'),
                   // Ligne TVA (20%)
-                  _buildOrderSummaryRow("TVA (20%)", '${tva.toStringAsFixed(2)}€'),
+                  _buildOrderSummaryRow(
+                      "TVA (20%)", '${tva.toStringAsFixed(2)}€'),
                   // Ligne Total
-                  _buildOrderSummaryRow("Total", '${total.toStringAsFixed(2)}€'),
+                  _buildOrderSummaryRow(
+                      "Total", '${total.toStringAsFixed(2)}€'),
                 ],
               ),
             ),
@@ -76,7 +82,10 @@ class PaymentPage extends StatelessWidget {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Theme.of(context).colorScheme!.outline),
+                  side: BorderSide(color: Theme
+                      .of(context)
+                      .colorScheme!
+                      .outline),
                 ),
               ),
               child: const Text("Confirmer l'achat"),
@@ -129,17 +138,22 @@ class PaymentPage extends StatelessWidget {
     );
   }
 
-  Widget _buildElevatedContainer(BuildContext context, {required Widget child}) {
+  Widget _buildElevatedContainer(BuildContext context,
+      {required Widget child}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).colorScheme!.outline),
+        border: Border.all(color: Theme
+            .of(context)
+            .colorScheme!
+            .outline),
       ),
       child: Material(
         elevation: 0,
         borderRadius: BorderRadius.circular(12),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+          // Ajout de marges
           child: child,
         ),
       ),

@@ -94,20 +94,21 @@ class ProceedToPaymentButton extends StatelessWidget {
     final cart = context.read<Cart>();
     final subtotalInt = cart.priceTotal();
 
-    return ElevatedButton(
-      onPressed: () {
-        context.go('/payment?subtotal=$subtotalInt');
-      },
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Theme.of(context).colorScheme.outline),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0), // Ajout de marges
+      child: ElevatedButton(
+        onPressed: () {
+          context.go('/payment?subtotal=$subtotalInt');
+        },
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white, backgroundColor: Colors.red, elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: Theme.of(context).colorScheme.outline),
+          ), // Couleur du texte
         ),
-        primary: Colors.red, // Couleur du bouton
-        onPrimary: Colors.white, // Couleur du texte
+        child: const Text("Procéder au paiement"),
       ),
-      child: const Text("Procéder au paiement"),
     );
   }
 }

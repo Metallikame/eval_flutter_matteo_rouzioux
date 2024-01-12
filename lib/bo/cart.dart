@@ -6,6 +6,8 @@ class Cart with ChangeNotifier {
 
   String priceTotalInEuro() =>
       "${_items.fold(0 as num, (itemPrev, item) => itemPrev + item.prix) / 10}€";
+  String priceTotal() =>
+      "${_items.fold(0 as num, (itemPrev, item) => itemPrev + item.prix) / 10}";
   //String priceTotalInEuroSimpl() {
   //  var prix = 0 as num;
   //  for (Article item in _items) {

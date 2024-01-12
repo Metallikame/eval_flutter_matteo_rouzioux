@@ -20,7 +20,7 @@ class CartPage extends StatelessWidget {
             ? const ListCart()
             : const EmptyCart(),
       ),
-      bottomNavigationBar: context.watch<Cart>().items.length >= 5
+      bottomNavigationBar: context.watch<Cart>().items.isNotEmpty
           ? const ProceedToPaymentButton()
           : null,
     );
